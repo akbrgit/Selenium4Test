@@ -4,20 +4,28 @@ public class PrintDatesDynamic {
 
 	public static void main(String[] args) {
 
-		String date = "29th Feb 2000";
+		String date = "31st Jan 2023";
 		String dates[]=date.split(" ");
 		String dd = dates[0].replaceAll("[^\\d]", "");;
 		String mm = dates[1];
 		String yy = dates[2];
-		System.out.println(previousDate(dd,mm,yy));
-		System.out.println(nextDate(dd, mm, yy));
+		if(checkDate(dd,mm,yy)) {
+			System.out.print("Previous Day: ");
+			System.out.println(previousDate(dd,mm,yy));
+			System.out.print("Today : ");
+			System.out.println(date);
+			System.out.print("Next Day : ");
+			System.out.println(nextDate(dd, mm, yy));
+		}
+		else {
+			System.out.print("Hello Aman you have entered "+date+" is not a valid date");
+		}
 
 	}
 
 	private static String previousDate(String day, String mm, String yy) {
 		day =DateDigits(day);
 		String pdate ="";
-
 
 		if(mm.equals("Jan") && day.equals("01")) {
 			mm = "Dec";
@@ -107,7 +115,6 @@ public class PrintDatesDynamic {
 		day =DateDigits(day);
 		String ndate ="";
 
-
 		if(mm.equals("Jan") && day.equals("31")) {
 			mm = "Feb";
 			day = "01";
@@ -128,7 +135,7 @@ public class PrintDatesDynamic {
 		else if(mm.equals("Mar") && day.equals("31")) {
 			mm = "Apr";
 			day = "01";
-			ndate = (adjustDate(DateDigits(leapYearHandle(yy)))+" "+mm+" "+yy);
+			ndate = (adjustDate(DateDigits(day))+" "+mm+" "+yy);
 		}
 
 		else if(mm.equals("May") && day.equals("30")) {
@@ -244,6 +251,21 @@ public class PrintDatesDynamic {
 		}
 
 		return day+suff;
+	}
+
+	private static boolean checkDate(String day, String mm, String yy) {
+
+		day =DateDigits(day);
+		boolean flag=true;
+		if(mm.equals("Feb") && Integer.valueOf(day)>28 && !isLeapYear(yy)
+				||mm.equals("Feb") && Integer.valueOf(day)>29 && isLeapYear(yy)
+				||((mm.equals("Jan")||mm.equals("Mar")||mm.equals("May")||mm.equals("Jul")
+						||mm.equals("Aug")||mm.equals("Oct")||mm.equals("Dec")) && Integer.valueOf(day)>31)
+				||((mm.equals("Apr")||mm.equals("Jun")||mm.equals("Sep")||mm.equals("Nov")) && Integer.valueOf(day)>31)
+				) {
+			flag = false;;
+		}
+		return flag;
 	}
 
 }
