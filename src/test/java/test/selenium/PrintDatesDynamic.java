@@ -18,7 +18,7 @@ public class PrintDatesDynamic {
 			System.out.println(nextDate(dd, mm, yy));
 		}
 		else {
-			System.out.print("Hello Aman you have entered "+date+" is not a valid date");
+			System.out.print(date+" is not a valid date");
 		}
 
 	}
